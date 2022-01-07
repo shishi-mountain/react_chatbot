@@ -35,6 +35,13 @@ export default class App extends React.Component {
       case (nextQuestionId === 'init'):
         this.displayNextQuestion(nextQuestionId)
         break;
+      case (/^https:*/.test(nextQuestionId)):
+        // URLだったら
+        const a = document.createElement('a');
+        a.href = nextQuestionId;
+        a.target = '_blank';
+        a.click();
+        break;
       default:
         const chats = this.state.chats;
         chats.push({
@@ -46,7 +53,7 @@ export default class App extends React.Component {
           chats: chats
         })
 
-        this.displayNextQuestion(nextQuestionId)
+        setTimeout(() => this.displayNextQuestion(nextQuestionId), 750)
         break;
     }
   }
@@ -54,6 +61,13 @@ export default class App extends React.Component {
   componentDidMount() {
     const initAnswer = ""
     this.selectAnswer(initAnswer, this.state.currentId)
+  }
+
+  componentDidUpdate() {
+    const scrollArea = document.getElementById('scroll-area')
+    if (scrollArea) {
+      scrollArea.scrollTop = scrollArea.scrollHeight
+    }
   }
 
   render() {
