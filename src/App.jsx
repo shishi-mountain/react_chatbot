@@ -38,6 +38,9 @@ export default class App extends React.Component {
       case (nextQuestionId === 'init'):
         this.displayNextQuestion(nextQuestionId)
         break;
+      case (nextQuestionId === 'contact'):
+        this.handleClickOpen()
+        break;
       case (/^https:*/.test(nextQuestionId)):
         // URLだったら
         const a = document.createElement('a');
